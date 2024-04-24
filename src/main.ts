@@ -2,8 +2,8 @@ import "./style.css";
 
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { moon } from "./objects/moon";
-import { star } from "./objects/star";
+import { createMoon } from "./objects/createMoon";
+import { createStar } from "./objects/createStar";
 import { lightHelper } from "./helper/light-helper";
 
 const scene = new THREE.Scene();
@@ -22,7 +22,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-const pointLight = new THREE.PointLight(0xffffff, 100, 0, 1);
+const pointLight = new THREE.PointLight(0xffffff, 80, 0, 1);
 pointLight.position.set(20, 10, 5);
 scene.add(pointLight);
 
@@ -33,13 +33,18 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 lightHelper(scene, pointLight);
 
-star(scene, 1000);
+for (let i = 0; i < 1000; i++) {
+  const star = createStar();
+  scene.add(star);
+}
 
-moon(scene);
+const moon = createMoon(new THREE.Vector3(0, 0, 0));
+scene.add(moon);
 
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
+  moon.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
 animate();
