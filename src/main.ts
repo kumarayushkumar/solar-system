@@ -5,6 +5,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { createMoon } from "./objects/createMoon";
 import { createStar } from "./objects/createStar";
 import { lightHelper } from "./helper/light-helper";
+import { createEarth } from "./objects/createEarth";
+import { createSun } from "./objects/createSun";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -37,14 +39,20 @@ for (let i = 0; i < 1000; i++) {
   const star = createStar();
   scene.add(star);
 }
+const sun = createSun(new THREE.Vector3(20, 20, 20));
+scene.add(sun);
 
 const moon = createMoon(new THREE.Vector3(0, 0, 0));
 scene.add(moon);
 
+const earth = createEarth(new THREE.Vector3(10, -10, 0));
+scene.add(earth);
+
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
-  moon.rotation.y += 0.01;
+  moon.rotation.y += 0.005;
+  earth.rotation.y += 0.005;
   renderer.render(scene, camera);
 }
 animate();
