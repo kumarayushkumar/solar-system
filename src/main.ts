@@ -6,6 +6,7 @@ import { createMoon } from "./objects/createMoon";
 import { createEarth } from "./objects/createEarth";
 import { createSun } from "./objects/createSun";
 import { CONSTANTS } from "./utils/constants";
+import { lightHelper } from "./helper/light-helper";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -29,9 +30,6 @@ controls.dampingFactor = 0.1;
 
 camera.position.set(CONSTANTS.DISTANCE.SUN_TO_EARTH + 10, 10, 16);
 controls.target = new THREE.Vector3(CONSTANTS.DISTANCE.SUN_TO_EARTH, 0, 0);
-
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-scene.add(ambientLight);
 
 const sun = createSun(new THREE.Vector3(0, 0, 0));
 scene.add(sun);
@@ -79,14 +77,33 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   });
 });
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xffffff, 50000, 0, 1);
+scene.add(pointLight);
+pointLight.position.set(0, 0, 0);
+lightHelper(scene, pointLight);
+
+const earthRotationSpeed = 0.01;
+const moonOrbitSpeed = 0.0003;
 
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
-  moon.rotation.y += 0.005;
-  earth.rotation.y += 0.005;
-  sun.rotation.y += 0.002;
-  controls.update();
+
+  earth.rotation.y += earthRotationSpeed;
+
+  const moonOrbitRadius = CONSTANTS.DISTANCE.EARTH_TO_MOON;
+  const moonOrbitAngle = Date.now() * moonOrbitSpeed;
+  const moonPosition = new THREE.Vector3(
+    CONSTANTS.DISTANCE.SUN_TO_EARTH +
+      moonOrbitRadius * Math.cos(moonOrbitAngle),
+    0,
+    moonOrbitRadius * Math.sin(moonOrbitAngle)
+  );
+  moon.position.copy(moonPosition);
+
   renderer.render(scene, camera);
 }
 animate();

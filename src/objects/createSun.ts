@@ -8,8 +8,9 @@ export function createSun(postion: THREE.Vector3) {
     new THREE.SphereGeometry(CONSTANTS.RADIUS.SUN, 1000, 1000),
     new THREE.MeshStandardMaterial({
       map: new THREE.TextureLoader().load(sunColorMap),
-      // emissive: 0xffff00,
-      emissiveIntensity: 1.0,
+      emissive: 0xfdb813,
+      emissiveIntensity: 2,
+      emissiveMap: new THREE.TextureLoader().load(sunColorMap),
     }) as THREE.MeshStandardMaterial
   );
 
