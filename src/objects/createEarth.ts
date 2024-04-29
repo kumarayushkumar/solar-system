@@ -11,6 +11,7 @@ export function createEarth(postion: THREE.Vector3) {
       map: new THREE.TextureLoader().load(earthColorMap),
       normalMap: new THREE.TextureLoader().load(earthNormalMap),
       bumpMap: new THREE.TextureLoader().load(earthBumpMap),
+      bumpScale: 0.05,
     }) as THREE.MeshStandardMaterial
   );
 

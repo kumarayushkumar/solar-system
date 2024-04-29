@@ -1,14 +1,15 @@
+export const DISTANCE_SCALE = 10000;
+
+export const RADIUS_SCALE = 1000;
+
 export const CONSTANTS = {
   DISTANCE: {
-    SUN_TO_EARTH: 14900.00000,
-    EARTH_TO_MOON: 38.4400,
+    SUN_TO_EARTH: 149000000 / DISTANCE_SCALE,
+    EARTH_TO_MOON: 384400 / DISTANCE_SCALE,
   },
   RADIUS: {
-    SUN: 696.340,
-    EARTH: 6.378,
-    MOON: 1.737,
+    SUN: 696340 / RADIUS_SCALE,
+    EARTH: 6378 / RADIUS_SCALE,
+    MOON: 1737 / RADIUS_SCALE,
   },
 };
-
-// distance 1 unit = 10000km
-// radius 1 unit = 1000km
