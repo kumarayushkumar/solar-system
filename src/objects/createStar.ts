@@ -9,7 +9,7 @@ export function createStar() {
 
   const [x, y, z] = Array(3)
     .fill(0)
-    .map(() => getRandomNumber(-100, 100, -15, 15));
+    .map(() => getRandomNumber(-100000, 100000, -1500, 1500));
 
   star.position.set(x, y, z);
   return star;
